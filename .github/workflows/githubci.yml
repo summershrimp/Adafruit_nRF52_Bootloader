@@ -31,7 +31,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        board: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
+        board:
+          - agentickbd_1
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
