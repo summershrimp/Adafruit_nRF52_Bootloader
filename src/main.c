@@ -265,6 +265,7 @@ static void check_dfu_mode(void) {
   // DFU + FRESET are pressed --> OTA
 #if defined(BUTTON_DFU) && defined(BUTTON_FRESET)
   _ota_dfu = _ota_dfu || (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET));
+  PRINTF("DFU: %d FRST: %d \r\n", button_pressed(BUTTON_DFU), button_pressed(BUTTON_FRESET));
 #endif
 
   bool const valid_app = bootloader_app_is_valid();

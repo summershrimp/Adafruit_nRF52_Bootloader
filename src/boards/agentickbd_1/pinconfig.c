@@ -22,8 +22,8 @@ const uint32_t bootloaderConfig[] =
 static void power_on(void)
 {
   // Turn on the regulator
-  nrf_gpio_cfg_output(PWR_KEEP_PIN);
-  nrf_gpio_pin_write(PWR_KEEP_PIN, 1);
+  // nrf_gpio_cfg_output(PWR_KEEP_PIN);
+  // nrf_gpio_pin_write(PWR_KEEP_PIN, 1);
 }
 
 void board_init2(void)
@@ -38,16 +38,16 @@ void board_init2(void)
     ROW_0_PIN,
     NRF_GPIO_PIN_DIR_OUTPUT,
     NRF_GPIO_PIN_INPUT_DISCONNECT,
-    NRF_GPIO_PIN_NOPULL,
-    NRF_GPIO_PIN_H0D1,
+    NRF_GPIO_PIN_PULLDOWN,
+    NRF_GPIO_PIN_D0H1,
     NRF_GPIO_PIN_NOSENSE
   );
   nrf_gpio_cfg(
     ROW_1_PIN,
     NRF_GPIO_PIN_DIR_OUTPUT,
     NRF_GPIO_PIN_INPUT_DISCONNECT,
-    NRF_GPIO_PIN_NOPULL,
-    NRF_GPIO_PIN_H0D1,
+    NRF_GPIO_PIN_PULLDOWN,
+    NRF_GPIO_PIN_D0H1,
     NRF_GPIO_PIN_NOSENSE
   );
   nrf_gpio_pin_write(ROW_0_PIN, 1);

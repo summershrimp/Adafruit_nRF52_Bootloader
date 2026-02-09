@@ -30,7 +30,8 @@
 /*------------------------------------------------------------------*/
 /* LED
  *------------------------------------------------------------------*/
-#define LEDS_NUMBER           0
+#define LEDS_NUMBER           1
+#define LED_PRIMARY_PIN       _PINNUM(0,  5)
 
 #define LED_NEOPIXEL          _PINNUM(1,  9)
 #define NEOPIXELS_NUMBER      1
@@ -70,17 +71,17 @@
 #define DISPLAY_PIN_SCK       _PINNUM(0, 13)
 #define DISPLAY_PIN_MOSI      _PINNUM(0, 24)
 
-#define DISPLAY_PIN_CS        _PINNUM(0, 12)
+#define DISPLAY_PIN_CS        _PINNUM(0,  1)
 #define DISPLAY_PIN_DC        _PINNUM(0,  9)
 #define DISPLAY_PIN_RST       _PINNUM(0, 10)
-#define DISPLAY_PIN_BL        _PINNUM(0,  5)
-#define DISPLAY_BL_ON         1  // GPIO state to enable back light
+// #define DISPLAY_PIN_BL        _PINNUM(0,  5)
+// #define DISPLAY_BL_ON         0  // GPIO state to enable back light
 
 #define DISPLAY_WIDTH         76
 #define DISPLAY_HEIGHT        284
 
 #define DISPLAY_COL_OFFSET    0
-#define DISPLAY_ROW_OFFSET    80
+#define DISPLAY_ROW_OFFSET    0
 
 // Memory Data Access Control & // Vertical Scroll Start Address
 #define DISPLAY_MADCTL        (TFT_MADCTL_MY)

@@ -247,6 +247,7 @@ static void tft_cmd(uint8_t cmd, uint8_t const* data, size_t narg) {
 void board_display_init(void) {
   //------------- SPI init -------------//
   // highspeed SPIM should set SCK and MOSI to high drive
+  PRINTF("Disp INIT\r\n");
   nrf_gpio_cfg(DISPLAY_PIN_SCK, NRF_GPIO_PIN_DIR_OUTPUT, NRF_GPIO_PIN_INPUT_CONNECT,
                NRF_GPIO_PIN_NOPULL, NRF_GPIO_PIN_H0H1, NRF_GPIO_PIN_NOSENSE);
   nrf_gpio_cfg(DISPLAY_PIN_MOSI, NRF_GPIO_PIN_DIR_OUTPUT, NRF_GPIO_PIN_INPUT_DISCONNECT,
@@ -291,6 +292,7 @@ void board_display_teardown(void) {
 
 void board_display_draw_line(uint16_t y, uint8_t const* buf, size_t nbytes) {
   // column and row address set
+    PRINTF("Disp DRAW\r\n");
   uint32_t xa32 = DISPLAY_COL_OFFSET << 16 | DISPLAY_WIDTH;
   xa32 = __builtin_bswap32(xa32);
 
@@ -423,11 +425,12 @@ void led_state(uint32_t state) {
       break;
 
     case STATE_WRITING_STARTED:
-      temp_color = 0xff0000;
+      temp_color = 0xffff00;
       primary_cycle_length = 100;
       break;
 
     case STATE_WRITING_FINISHED:
+      new_rgb_color = 0x00ffff;
       // Empty means to unset any temp colors.
       primary_cycle_length = 3000;
       break;
@@ -744,6 +747,8 @@ void neopixel_write (uint8_t *pixels) {
 #define ST77XX_ORANGE 0xFC00
 
 static void tft_controller_init(void) {
+
+  PRINTF("Disp tft_controller_init\r\n");
   // Init commands for 7789 screens
   uint8_t cmdinit_st7789[] = {
       #if !defined(DISPLAY_PIN_RST) || (DISPLAY_PIN_RST < 0)
