@@ -292,12 +292,12 @@ void board_display_teardown(void) {
 
 void board_display_draw_line(uint16_t y, uint8_t const* buf, size_t nbytes) {
   // column and row address set
-    PRINTF("Disp DRAW\r\n");
-  uint32_t xa32 = DISPLAY_COL_OFFSET << 16 | DISPLAY_WIDTH;
+  uint32_t xa32 = (DISPLAY_COL_OFFSET << 16) |
+                  (DISPLAY_COL_OFFSET + DISPLAY_WIDTH - 1);
   xa32 = __builtin_bswap32(xa32);
 
   y += DISPLAY_ROW_OFFSET;
-  uint32_t ya32 = (y << 16) | (y + 1);
+  uint32_t ya32 = (y << 16) | y;
   ya32 = __builtin_bswap32(ya32);
 
   tft_cmd(0x2A, (uint8_t*) &xa32, 4);
@@ -768,7 +768,7 @@ static void tft_controller_init(void) {
       // Row addr set, 4 args, no delay: YSTART = 0 YEND = 320
       ST77XX_RASET, 4, 0x00, 0, 320 >> 8, 320 & 0xFF,
       // Inversion on
-      ST77XX_INVON, ST_CMD_DELAY, 10,
+      // ST77XX_INVON, ST_CMD_DELAY, 10,
       // Normal display on, no args, w/delay 10 ms delay
       ST77XX_NORON, ST_CMD_DELAY, 10,
       // Main screen turn on, no args, delay 10 ms delay

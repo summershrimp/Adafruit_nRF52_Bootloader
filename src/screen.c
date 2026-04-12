@@ -215,12 +215,11 @@ static void print4(int x, int y, int color, const char* text) {
 //--------------------------------------------------------------------+
 
 static void draw_screen(uint8_t const* fb) {
-  uint8_t const* p = fb;
-  for (int y = 0; y < DISPLAY_WIDTH; ++y) {
-    uint8_t cc[DISPLAY_HEIGHT * 2];
+  for (int y = 0; y < DISPLAY_HEIGHT; ++y) {
+    uint8_t cc[DISPLAY_WIDTH * 2];
     uint32_t dst = 0;
-    for (int x = 0; x < DISPLAY_HEIGHT; ++x) {
-      uint16_t color = palette[*p++ & 0xf];
+    for (int x = 0; x < DISPLAY_WIDTH; ++x) {
+      uint16_t color = palette[fb[x * DISPLAY_HEIGHT + y] & 0xf];
       cc[dst++] = color >> 8;
       cc[dst++] = color & 0xff;
     }
@@ -238,27 +237,27 @@ static void drawBar(int y, int h, int color) {
 
 // draw drag & drop screen
 void screen_draw_drag(void) {
-  drawBar(0, 52, COLOR_GREEN);
-  drawBar(52, 55, COLOR_BLUE);
-  drawBar(107, 14, COLOR_ORANGE);
+  // drawBar(0, 40, COLOR_GREEN);
+  // drawBar(40, 20, COLOR_BLUE);
+  drawBar(0, 76, COLOR_ORANGE);
 
   // Center UF2_PRODUCT_NAME and UF2_VERSION.
   int name_x = (DISPLAY_WIDTH - CHAR4_KERNED_WIDTH * (int) strlen(DISPLAY_TITLE)) / 2;
-  print4(name_x >= 0 ? name_x : 0, 5, COLOR_WHITE, DISPLAY_TITLE);
+  print4(name_x >= 0 ? name_x : 0, 36, COLOR_WHITE, DISPLAY_TITLE);
 
   int version_x = (DISPLAY_WIDTH - 6 * (int) strlen(UF2_VERSION)) / 2;
-  print(version_x >= 0 ? version_x : 0, 40, COLOR_PURPLE, UF2_VERSION);
+  print(version_x >= 0 ? version_x : 0, 68, COLOR_PURPLE, UF2_VERSION);
 
   // TODO the reset should be center as well
-  print(23, 110, 1, "circuitpython.org");
+  // print(40, 45, 1, "circuitpython.org");
 
-#define DRAG 70
-#define DRAGX 10
+#define DRAG 5
+#define DRAGX 70
   printicon(DRAGX + 20, DRAG + 5, COLOR_WHITE, fileLogo);
   printicon(DRAGX + 66, DRAG, COLOR_WHITE, arrowLogo);
   printicon(DRAGX + 108, DRAG, COLOR_WHITE, pendriveLogo);
-  print(10, DRAG - 12, COLOR_WHITE, "firmware.uf2");
-  print(90, DRAG - 12, COLOR_WHITE, UF2_VOLUME_LABEL);
+  // print(10, DRAG - 12, COLOR_WHITE, "firmware.uf2");
+  // print(90, DRAG - 12, COLOR_WHITE, UF2_VOLUME_LABEL);
 
   draw_screen(frame_buf);
 }

@@ -30,13 +30,13 @@
 /*------------------------------------------------------------------*/
 /* LED
  *------------------------------------------------------------------*/
-#define LEDS_NUMBER           1
-#define LED_PRIMARY_PIN       _PINNUM(0,  5)
+#define LEDS_NUMBER           0
 
 #define LED_NEOPIXEL          _PINNUM(1,  9)
 #define NEOPIXELS_NUMBER      1
 #define BOARD_RGB_BRIGHTNESS  0x040404
 
+#define LED_WS_ON_PIN       _PINNUM(0,  6)
 
 /*
  * KeyScan IO
@@ -71,23 +71,22 @@
 #define DISPLAY_PIN_SCK       _PINNUM(0, 13)
 #define DISPLAY_PIN_MOSI      _PINNUM(0, 24)
 
-#define DISPLAY_PIN_CS        _PINNUM(0,  1)
-#define DISPLAY_PIN_DC        _PINNUM(0,  9)
-#define DISPLAY_PIN_RST       _PINNUM(0, 10)
-// #define DISPLAY_PIN_BL        _PINNUM(0,  5)
-// #define DISPLAY_BL_ON         0  // GPIO state to enable back light
+#define DISPLAY_PIN_CS        _PINNUM(0, 22)
+#define DISPLAY_PIN_DC        _PINNUM(0,  9)  // NF1
+#define DISPLAY_PIN_RST       _PINNUM(0, 10)  // NF2
+#define DISPLAY_PIN_BL_PWM    _PINNUM(0,  5)
 
-#define DISPLAY_WIDTH         76
-#define DISPLAY_HEIGHT        284
+#define DISPLAY_WIDTH         284
+#define DISPLAY_HEIGHT         76
 
-#define DISPLAY_COL_OFFSET    0
-#define DISPLAY_ROW_OFFSET    0
+#define DISPLAY_COL_OFFSET    18
+#define DISPLAY_ROW_OFFSET    82
 
 // Memory Data Access Control & // Vertical Scroll Start Address
-#define DISPLAY_MADCTL        (TFT_MADCTL_MY)
+#define DISPLAY_MADCTL        (TFT_MADCTL_MY | TFT_MADCTL_MV)
 #define DISPLAY_VSCSAD        0
 
-#define DISPLAY_TITLE         "Agentic Keyboard"
+#define DISPLAY_TITLE         "AgenticKBD"
 
 
 //--------------------------------------------------------------------+

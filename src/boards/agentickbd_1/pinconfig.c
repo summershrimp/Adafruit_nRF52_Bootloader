@@ -21,19 +21,22 @@ const uint32_t bootloaderConfig[] =
 
 static void power_on(void)
 {
-  // Turn on the regulator
-  // nrf_gpio_cfg_output(PWR_KEEP_PIN);
-  // nrf_gpio_pin_write(PWR_KEEP_PIN, 1);
+  //Turn on the regulator
+  nrf_gpio_cfg_output(PWR_KEEP_PIN);
+  nrf_gpio_pin_write(PWR_KEEP_PIN, 1);
+
+  // Turn on WS2812 power
+  nrf_gpio_cfg_output(LED_WS_ON_PIN);
+  nrf_gpio_pin_write(LED_WS_ON_PIN, 1);
 }
 
 void board_init2(void)
 {
   power_on();
+  
+  led_pwm_init(1, DISPLAY_PIN_BL_PWM);
+  led_pwm_duty_cycle(1, 0x20);
 
-  // configure P0.05 for ESC/BUTTON_2
-  // P0.05 --- |<- --- / --- P0.19
-  //         diode  sw(esc)
-  // mode: output, push-pull, low
   nrf_gpio_cfg(
     ROW_0_PIN,
     NRF_GPIO_PIN_DIR_OUTPUT,
